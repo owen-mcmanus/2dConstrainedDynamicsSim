@@ -1,9 +1,8 @@
 #include "../include/euler_solver.h"
 #include "../include/state.h"
 
-void EulerSolver::solve(State* system) {
+void EulerSolver::solve(State* system, double dt) {
 	if (!system->is_fixed) {
-		float dt = 0.1f;
 		system->a = system->f * (1 / system->mass);
 
 		//system->p.x += system->v.x * dt;

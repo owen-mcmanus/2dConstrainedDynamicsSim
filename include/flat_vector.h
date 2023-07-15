@@ -4,22 +4,22 @@
 
 	class FlatVector {
 	public:
-		FlatVector(float _x, float _y) : x(_x), y(_y) {};
+		FlatVector(double _x, double _y) : x(_x), y(_y) {};
 		//~FlatVector();
 		FlatVector() {};
 
-		float x;
-		float y;
+		double x;
+		double y;
 
 		FlatVector operator+(FlatVector const& obj);
 
 		FlatVector operator-(FlatVector const& obj);
 
-		float operator*(FlatVector const& obj);
+		double operator*(FlatVector const& obj);
 
-		FlatVector operator*(float s);
+		FlatVector operator*(double s);
 
-		float length();
+		double length();
 
 		FlatVector norm();
 	};

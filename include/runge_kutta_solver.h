@@ -8,7 +8,7 @@ public:
 	RungeKuttaSolver() {};
 	//~SystemState();
 
-	static void solve(State* system);
+	static void solve(State* system, double dt);
 
 };
 

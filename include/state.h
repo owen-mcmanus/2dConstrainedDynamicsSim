@@ -13,7 +13,7 @@
 		FlatVector v;
 		FlatVector a;
 
-		float mass;
+		double mass;
 		bool is_fixed;
 
 		FlatVector f;

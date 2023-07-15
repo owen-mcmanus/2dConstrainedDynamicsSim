@@ -3,9 +3,10 @@
 #include <iostream>
 #include "../include/spring_fg.h"
 
-DoubleRigidbody::DoubleRigidbody(bool fixed, bool fixed1) {
+DoubleRigidbody::DoubleRigidbody(std::string _name, bool fixed, bool fixed1) {
 	state = State(fixed);
 	state1 = State(fixed1);
+	name = _name;
 }
 
 void DoubleRigidbody::addGravityForce() {
@@ -13,17 +14,18 @@ void DoubleRigidbody::addGravityForce() {
 	GravityFg::calculate(&state1);
 }
 
-void DoubleRigidbody::addSpringForce(float k) {
+void DoubleRigidbody::addSpringForce(double k) {
 	SpringFg::calculate(&state, &state1, k);
 }
 
-void DoubleRigidbody::stepSimulationEuler() {
-	//RungeKuttaSolver::solve(&state);
-	//RungeKuttaSolver::solve(&state1);
-	EulerSolver::solve(&state);
-	EulerSolver::solve(&state1);
-	std::cout <<"1: " << state.p.x << " " << state.p.y << std::endl;
-	std::cout <<"2: " << state1.p.x << " " << state1.p.y << std::endl;
+void DoubleRigidbody::stepSimulationEuler(double dt) {
+	EulerSolver::solve(&state, dt);
+	EulerSolver::solve(&state1, dt);
+}
+
+void DoubleRigidbody::stepSimulationRK4(double dt) {
+	RungeKuttaSolver::solve(&state, dt);
+	RungeKuttaSolver::solve(&state1, dt);
 }
 
 void DoubleRigidbody::reset() {

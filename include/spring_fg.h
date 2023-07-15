@@ -7,7 +7,7 @@
 class SpringFg : public ForceGenerator {
 public:
 	SpringFg(){};
-	static void calculate(State* state, State* state1, float k);
+	static void calculate(State* state, State* state1, double k);
 
 };
 
