@@ -13,7 +13,8 @@ public:
 	State state;
 	void addGravityForce();
 	void stepSimulationEuler(double dt);
-	void stepSimulationRK4(double dt);
+	void stepSimulationRK4(double dt, void (*applyForces)());
+	void reset();
 
 	std::string name = "";
 };

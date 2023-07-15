@@ -10,12 +10,12 @@ DoubleRigidbody::DoubleRigidbody(std::string _name, bool fixed, bool fixed1) {
 }
 
 void DoubleRigidbody::addGravityForce() {
-	GravityFg::calculate(&state);
-	GravityFg::calculate(&state1);
+	//GravityFg::calculate(&state);
+	//GravityFg::calculate(&state1);
 }
 
 void DoubleRigidbody::addSpringForce(double k) {
-	SpringFg::calculate(&state, &state1, k);
+	//SpringFg::calculate(&state, &state1, k);
 }
 
 void DoubleRigidbody::stepSimulationEuler(double dt) {
@@ -24,8 +24,8 @@ void DoubleRigidbody::stepSimulationEuler(double dt) {
 }
 
 void DoubleRigidbody::stepSimulationRK4(double dt) {
-	RungeKuttaSolver::solve(&state, dt);
-	RungeKuttaSolver::solve(&state1, dt);
+	//RungeKuttaSolver::solve(&state, dt);
+	//RungeKuttaSolver::solve(&state1, dt);
 }
 
 void DoubleRigidbody::reset() {

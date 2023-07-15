@@ -2,12 +2,12 @@
 #define SPRING_FG
 
 #include "force_generator.h"
-#include "state.h"
+#include "single_rigidbody.h"
 
 class SpringFg : public ForceGenerator {
 public:
 	SpringFg(){};
-	static void calculate(State* state, State* state1, double k);
+	static void calculate(SingleRigidbody* rb, SingleRigidbody* rb1, double k);
 
 };
 

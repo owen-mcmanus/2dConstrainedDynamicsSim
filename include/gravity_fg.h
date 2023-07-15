@@ -2,12 +2,12 @@
 #define GRAVITY_FG
 
 #include "force_generator.h"
-#include "state.h"
+#include "../include/single_rigidbody.h"
 
 class GravityFg :public ForceGenerator {
 public:
 	GravityFg(){};
-	static void calculate(State* state);
+	static void calculate(SingleRigidbody* rb);
 
 };
 
