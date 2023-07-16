@@ -9,7 +9,7 @@ public:
 	//~SystemState();
 
 	static void halfSolve(State* system, double dt);
-	static void solve(State* system, double dt, void (*applyForces)());
+	static void solve(double dt, void (*applyForces)());
 
 };
 

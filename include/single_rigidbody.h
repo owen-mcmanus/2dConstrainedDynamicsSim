@@ -6,9 +6,11 @@
 #include "state.h"
 #include "euler_solver.h"
 #include "rigidbody.h"
+#include <vector>
 
-class SingleRigidbody:Rigidbody {
+class SingleRigidbody {
 public:
+	SingleRigidbody() {};
 	SingleRigidbody(std::string _name, bool fixed);
 	State state;
 	void addGravityForce();
@@ -17,6 +19,7 @@ public:
 	void reset();
 
 	std::string name = "";
+	static std::vector<SingleRigidbody*> rb_list;
 };
 
 #endif
