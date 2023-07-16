@@ -23,5 +23,5 @@ def animation(i):
     ax.plot(x, y)
 
 
-ani = FuncAnimation(fig, animation, interval=3)
+ani = FuncAnimation(fig, animation, interval=33)
 plt.show()

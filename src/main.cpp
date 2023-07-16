@@ -6,19 +6,19 @@
 #include "../include/data_logger.h"
 #include "../include/gravity_fg.h"
 #include "../include/spring_fg.h"
+#include "../include/constraints.h"
 
 DataLogger loger = DataLogger("data");
-SingleRigidbody base = SingleRigidbody("base", false);
 SingleRigidbody mass1 = SingleRigidbody("mass1", false);
-//SingleRigidbody mass2 = SingleRigidbody("mass2", false);
-double dt = .003;
+SingleRigidbody mass2 = SingleRigidbody("mass2", false);
+
+double dt = .001;
 double sim_time = 15;
+double fps = 30;
 
 void addForces() {
     GravityFg::calculate(&mass1);
-    //GravityFg::calculate(&mass2);
-    SpringFg::calculate(&mass1, &base, 164, 0,.05);
-    //SpringFg::calculate(&mass1, &mass2, 750);
+    Constraints::calculateRigidSpringConst(&mass1, &mass2);
 }
 
 
@@ -28,28 +28,27 @@ int main() {
     double it = sim_time / dt;
 
     SingleRigidbody::rb_list.push_back(&mass1);
-    //SingleRigidbody::rb_list.push_back(&mass2);
+    SingleRigidbody::rb_list.push_back(&mass2);
 
-    loger.addData(&base);
     loger.addData(&mass1);
-    //loger.addData(&mass2);
+    loger.addData(&mass2);
     loger.writeHeaders();
     
     mass1.state.mass = 6;
-    mass1.state.p.x = .05;
-    mass1.state.p.y = .01;
+    mass1.state.p.x = 2;
+    mass1.state.p.y = 0;
 
-    //mass2.state.mass = 5;
-    //mass2.state.p.x = .1;
+    mass2.state.mass = 6;
 
     for (int i = 0; i < it; i++) {
         
         RungeKuttaSolver::solve(dt, &addForces);
         time += dt;
 
-        loger.writeLine(time);
+        if(i%10 == 0)
+            loger.writeLine(time);
         mass1.reset();
-        base.reset();
+        mass2.reset();
     }
     loger.writeFile();
 
