@@ -1,4 +1,5 @@
 #include "../include/constraints.h"
+#include <iostream>
 
 void Constraints::calculateCircleConst(SingleRigidbody* rb) {
 	double lambda = (-1 * (rb->state.f * rb->state.p) - (rb->state.mass * (rb->state.v * rb->state.v))) / (rb->state.p * rb->state.p);
@@ -11,4 +12,6 @@ void Constraints::calculateRigidSpringConst(SingleRigidbody* rb, SingleRigidbody
 	double n = (rb->state.mass)*(-1*(rel_v*rel_v)+((rb1->state.f*dist)/rb1->state.mass)-((rb->state.f * dist)/rb->state.mass))*(rb1->state.mass);
 	double d = rb1->state.mass * (dist * dist) + rb->state.mass * (dist * dist);
 	double lamba = (n/d);
+	rb->state.f = rb->state.f + dist*lamba;
+	rb1->state.f = rb1->state.f - dist*lamba;
 }

@@ -18,6 +18,9 @@ double fps = 30;
 
 void addForces() {
     GravityFg::calculate(&mass1);
+    mass2.state.f.x = 1999998;
+    //SpringFg::calculate(&mass1, &mass2, 100, 0, 2);
+    //Constraints::calculateCircleConst(&mass1);
     Constraints::calculateRigidSpringConst(&mass1, &mass2);
 }
 
@@ -35,10 +38,12 @@ int main() {
     loger.writeHeaders();
     
     mass1.state.mass = 6;
-    mass1.state.p.x = 2;
-    mass1.state.p.y = 0;
+    mass1.state.p.x = -2;
+    mass1.state.p.y = -9.8;
 
-    mass2.state.mass = 6;
+    mass2.state.mass = 999999;
+    mass2.state.v.x = 0;
+    mass1.state.v.x = 0;
 
     for (int i = 0; i < it; i++) {
         
