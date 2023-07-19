@@ -11,17 +11,18 @@
 DataLogger loger = DataLogger("data");
 SingleRigidbody mass1 = SingleRigidbody("mass1", false);
 SingleRigidbody mass2 = SingleRigidbody("mass2", false);
+SingleRigidbody mass3 = SingleRigidbody("mass3", false);
 
 double dt = .001;
 double sim_time = 15;
 double fps = 30;
 
 void addForces() {
-    GravityFg::calculate(&mass1);
-    mass2.state.f.x = 1999998;
-    //SpringFg::calculate(&mass1, &mass2, 100, 0, 2);
-    //Constraints::calculateCircleConst(&mass1);
-    Constraints::calculateRigidSpringConst(&mass1, &mass2);
+    GravityFg::calculate(&mass2);
+    Constraints::calculateCircleConst(&mass2);
+    //GravityFg::calculate(&mass3);
+    //Constraints::calculateRigidSpringConst(&mass1, &mass2);
+    //Constraints::calculateRigidSpringConst(&mass2, &mass3);
 }
 
 
@@ -30,20 +31,23 @@ int main() {
     double time = 0;
     double it = sim_time / dt;
 
-    SingleRigidbody::rb_list.push_back(&mass1);
+    //SingleRigidbody::rb_list.push_back(&mass1);
     SingleRigidbody::rb_list.push_back(&mass2);
+    //SingleRigidbody::rb_list.push_back(&mass3);
 
-    loger.addData(&mass1);
+    //loger.addData(&mass1);
     loger.addData(&mass2);
+    //loger.addData(&mass3);
     loger.writeHeaders();
     
-    mass1.state.mass = 6;
-    mass1.state.p.x = -2;
-    mass1.state.p.y = -9.8;
+   // mass1.state.mass = 999999;
 
-    mass2.state.mass = 999999;
-    mass2.state.v.x = 0;
-    mass1.state.v.x = 0;
+    mass2.state.mass = 2;
+    mass2.state.p.x = 1;
+
+    //mass3.state.mass = 2;
+    //mass3.state.p.x = 2;
+
 
     for (int i = 0; i < it; i++) {
         

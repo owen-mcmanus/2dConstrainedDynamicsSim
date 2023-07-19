@@ -2,7 +2,8 @@
 #include <iostream>
 
 void Constraints::calculateCircleConst(SingleRigidbody* rb) {
-	double lambda = (-1 * (rb->state.f * rb->state.p) - (rb->state.mass * (rb->state.v * rb->state.v))) / (rb->state.p * rb->state.p);
+	//double lambda = (-1 * (rb->state.f * rb->state.p) - (rb->state.mass * (rb->state.v * rb->state.v))) / (rb->state.p * rb->state.p);
+	double lambda = (-1*rb->state.f.y + 2 * rb->state.v.x * rb->state.v.x * rb->state.mass - 2 * rb->state.p.x * rb->state.f.x) / (rb->state.p.y + 2 * rb->state.p.x * rb->state.p.x);
 	rb->state.f = rb->state.f + (rb->state.p * lambda);
 }
 
