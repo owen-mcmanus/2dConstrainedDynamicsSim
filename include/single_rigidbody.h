@@ -5,8 +5,8 @@
 #include <string>
 #include "state.h"
 #include "euler_solver.h"
-#include "rigidbody.h"
 #include <vector>
+#include "constraint.h"
 
 class SingleRigidbody {
 public:
@@ -20,6 +20,8 @@ public:
 
 	std::string name = "";
 	static std::vector<SingleRigidbody*> rb_list;
+	std::vector<Constraint*> constraint_list;
+
 };
 
 #endif

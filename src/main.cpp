@@ -19,12 +19,15 @@ double fps = 30;
 
 void addForces() {
     GravityFg::calculate(&mass2);
-    Constraints::calculateCircleConst(&mass2);
-    //GravityFg::calculate(&mass3);
+    GravityFg::calculate(&mass3);
     //Constraints::calculateRigidSpringConst(&mass1, &mass2);
     //Constraints::calculateRigidSpringConst(&mass2, &mass3);
 }
 
+void addConstraints() {
+    //Constraints::calculateCircleConst(&mass2);
+    Constraints::addCircleConstraint(&mass2);
+}
 
 int main() {
     // random code ignore
@@ -37,7 +40,7 @@ int main() {
 
     //loger.addData(&mass1);
     loger.addData(&mass2);
-    //loger.addData(&mass3);
+    loger.addData(&mass3);
     loger.writeHeaders();
     
    // mass1.state.mass = 999999;
@@ -45,8 +48,13 @@ int main() {
     mass2.state.mass = 2;
     mass2.state.p.x = 1;
 
-    //mass3.state.mass = 2;
+    mass3.state.mass = 5;
     //mass3.state.p.x = 2;
+
+    addForces();
+    addConstraints();
+    Constraints::createMatrices();
+    Constraints::calculate();
 
 
     for (int i = 0; i < it; i++) {
