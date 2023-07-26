@@ -17,48 +17,41 @@ double dt = .001;
 double sim_time = 15;
 double fps = 30;
 
-void addForces() {
-    GravityFg::calculate(&mass2);
-    GravityFg::calculate(&mass3);
-    //Constraints::calculateRigidSpringConst(&mass1, &mass2);
-    //Constraints::calculateRigidSpringConst(&mass2, &mass3);
+void addConstraints() {
+    Constraints::addCircleConstraint(&mass2);
+    Constraints::createMatrices();
+    Constraints::calculate();
 }
 
-void addConstraints() {
-    //Constraints::calculateCircleConst(&mass2);
-    Constraints::addCircleConstraint(&mass2);
+void addForces() {
+    GravityFg::calculate(&mass2);
+    addConstraints();
 }
+
 
 int main() {
     // random code ignore
     double time = 0;
     double it = sim_time / dt;
 
-    //SingleRigidbody::rb_list.push_back(&mass1);
     SingleRigidbody::rb_list.push_back(&mass2);
-    //SingleRigidbody::rb_list.push_back(&mass3);
 
-    //loger.addData(&mass1);
     loger.addData(&mass2);
-    loger.addData(&mass3);
+
     loger.writeHeaders();
-    
-   // mass1.state.mass = 999999;
 
     mass2.state.mass = 2;
     mass2.state.p.x = 1;
 
-    mass3.state.mass = 5;
-    //mass3.state.p.x = 2;
 
-    addForces();
-    addConstraints();
-    Constraints::createMatrices();
-    Constraints::calculate();
-
-
+    
+    //addConstraints();
+    
+    //addForces();
+    //mass2.reset();
+    //addForces();
+    
     for (int i = 0; i < it; i++) {
-        
         RungeKuttaSolver::solve(dt, &addForces);
         time += dt;
 

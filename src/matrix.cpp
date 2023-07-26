@@ -113,16 +113,32 @@ void Matrix::multiply(Matrix& b, Matrix* target) {
 }
 
 void Matrix::transposeMultiply(Matrix& b, Matrix* target) {
-    target->resize(b.width, width);
+    target->resize(b.height, height);
 
-    for (int i = 0; i < width; ++i) {
-        for (int j = 0; j < b.width; ++j) {
+    for (int i = 0; i < height; ++i) {
+        for (int j = 0; j < b.height; ++j) {
             double v = 0.0;
-            for (int ii = 0; ii < height; ++ii) {
-                v += matrix[ii][i] * b.matrix[ii][j];
+            for (int ii = 0; ii < width; ++ii) {
+                v += matrix[i][ii] * b.matrix[j][ii];
             }
 
             target->matrix[i][j] = v;
+        }
+    }
+}
+
+void Matrix::multiplyScalar(double scalar) {
+    for (int i = 0; i < height*width; ++i) {
+        data[i] *= scalar;
+    }
+}
+
+void Matrix::subtract(Matrix& b, Matrix* target) {
+    target->resize(width, height);
+
+    for (int i = 0; i < height; ++i) {
+        for (int j = 0; j < width; ++j) {
+            target->matrix[i][j] = matrix[i][j]-b.matrix[i][j];
         }
     }
 }
@@ -133,6 +149,16 @@ void Matrix::diag(double* target) {
             if (i == j) {
                 matrix[i][j] = target[i];
             }
+        }
+    }
+}
+
+void Matrix::transpose(Matrix* target) {
+    target->resize(height, width);
+
+    for (int i = 0; i < width; ++i) {
+        for (int j = 0; j < height; ++j) {
+            target->matrix[i][j] = matrix[j][i];
         }
     }
 }

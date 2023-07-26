@@ -17,7 +17,10 @@ public:
     void Matrix::setBlock(int x, int y, Matrix* reference);
     void Matrix::multiply(Matrix& b, Matrix* target);
     void Matrix::transposeMultiply(Matrix& b, Matrix* target);
+    void Matrix::multiplyScalar(double scalar);
+    void Matrix::subtract(Matrix& b, Matrix* target);
     void Matrix::diag(double* target);
+    void Matrix::transpose(Matrix* target);
     void Matrix::print();
 
     double** matrix;

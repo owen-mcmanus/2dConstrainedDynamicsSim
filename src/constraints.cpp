@@ -8,7 +8,10 @@ static Matrix qdot = Matrix();
 static Matrix J = Matrix();
 static Matrix Jdot = Matrix();
 static Matrix left = Matrix();
+static Matrix left1 = Matrix();
 static Matrix right = Matrix();
+static Matrix right1 = Matrix();
+static Matrix right2 = Matrix();
 
 void Constraints::calculateCircleConst(SingleRigidbody* rb) {
 	//double lambda = (-1 * (rb->state.f * rb->state.p) - (rb->state.mass * (rb->state.v * rb->state.v))) / (rb->state.p * rb->state.p);
@@ -61,8 +64,6 @@ void Constraints::createMatrices() {
 	qdot = Matrix(1, num_of_rb * 2, 0);
 	J = Matrix(num_of_rb * 2, constraint_count);
 	Jdot = Matrix(num_of_rb * 2, constraint_count);
-	left = Matrix(num_of_rb * 2, constraint_count);
-	right = Matrix(1, constraint_count);
 
 	delete[](w_vec);
 }
@@ -95,12 +96,29 @@ void Constraints::calculate() {
 			Jdot.setBlock(i * 2, constraint_count, &SingleRigidbody::rb_list[i]->constraint_list[j]->jdot);
 			constraint_count++;
 		}
+		SingleRigidbody::rb_list[i]->constraint_list.clear();
 	}
 
+	J.multiply(W, &left1);
+	left1.transposeMultiply(J,&left);
 
-	W.print();
-	Q.print();
-	qdot.print();
-	J.print();
-	Jdot.print();
+	Jdot.multiplyScalar(-1);
+	Jdot.multiply(qdot, &right1);
+	left1.multiply(Q, &right2);
+	right1.subtract(right2, &right);
+
+	double lambda = (1 / (left.matrix[0][0])) * right.matrix[0][0];
+
+	Matrix Jt = Matrix();
+	J.transpose(&Jt);
+	Jt.multiplyScalar(lambda);
+	SingleRigidbody::rb_list[0]->state.f.x += Jt.matrix[0][0]; 
+	SingleRigidbody::rb_list[0]->state.f.y += Jt.matrix[0][1];
+	//W.print();
+	//Q.print();
+	//qdot.print();
+	//J.print();
+	//Jdot.print();
+	//Jt.print();
+
 }
