@@ -1,28 +1,26 @@
 #include "../include/constraints.h"
 #include <iostream>
-#include "constraint.cpp"
 
 static Matrix W = Matrix();
 static Matrix Q = Matrix();
+static Matrix Qhat = Matrix();
 static Matrix qdot = Matrix();
 static Matrix J = Matrix();
+static Matrix Jt = Matrix();
 static Matrix Jdot = Matrix();
+static Matrix lambda = Matrix();
 static Matrix left = Matrix();
 static Matrix left1 = Matrix();
 static Matrix right = Matrix();
 static Matrix right1 = Matrix();
 static Matrix right2 = Matrix();
-static Matrix lambda = Matrix();
-static Matrix Jt = Matrix();
-static Matrix Qhat = Matrix();
 
-void Constraints::calculateCircleConst(SingleRigidbody* rb) {
-	//double lambda = (-1 * (rb->state.f * rb->state.p) - (rb->state.mass * (rb->state.v * rb->state.v))) / (rb->state.p * rb->state.p);
-	double lambda = (-1*rb->state.f.y + 2 * rb->state.v.x * rb->state.v.x * rb->state.mass - 2 * rb->state.p.x * rb->state.f.x) / (rb->state.p.y + 2 * rb->state.p.x * rb->state.p.x);
+void Constraints::calculateCircleConst(SingleRigidbody* rb) { //deprecated
+	double lambda = (-1 * (rb->state.f * rb->state.p) - (rb->state.mass * (rb->state.v * rb->state.v))) / (rb->state.p * rb->state.p);
 	rb->state.f = rb->state.f + (rb->state.p * lambda);
 }
 
-void Constraints::calculateRigidSpringConst(SingleRigidbody* rb, SingleRigidbody* rb1) {
+void Constraints::calculateRigidSpringConst(SingleRigidbody* rb, SingleRigidbody* rb1) { //deprecated
 	FlatVector dist = FlatVector(rb->state.p.x - rb1->state.p.x, rb->state.p.y - rb1->state.p.y);
 	FlatVector rel_v = FlatVector(rb->state.v.x - rb1->state.v.x, rb->state.v.y - rb1->state.v.y);
 	double n = (rb->state.mass)*(-1*(rel_v*rel_v)+((rb1->state.f*dist)/rb1->state.mass)-((rb->state.f * dist)/rb->state.mass))*(rb1->state.mass);
@@ -86,7 +84,6 @@ void Constraints::calculate() {
 
 	}
 
-
 	Q.set(Q_vec);
 	qdot.set(qdot_vec);
 
@@ -112,18 +109,11 @@ void Constraints::calculate() {
 
 	GaussianElimination::solve(&left, &right, &lambda);
 
-	//double lambda = (1 / (left.matrix[0][0])) * right.matrix[0][0];
-
-	
 	J.transpose(&Jt);
 	Jt.multiply(lambda, &Qhat);
-	SingleRigidbody::rb_list[0]->state.f.x += Qhat.matrix[0][0];
-	SingleRigidbody::rb_list[0]->state.f.y += Qhat.matrix[0][1];
-	//W.print();
-	//Q.print();
-	//qdot.print();
-	//J.print();
-	//Jdot.print();
-	//Jt.print();
 
+	for (int i = 0; i < num_of_rb; i+=2) {
+		SingleRigidbody::rb_list[0]->state.f.x += Qhat.matrix[i][0];
+		SingleRigidbody::rb_list[0]->state.f.y += Qhat.matrix[i+1][0];
+	}
 }

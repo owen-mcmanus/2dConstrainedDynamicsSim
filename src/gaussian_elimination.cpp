@@ -1,4 +1,5 @@
 #include "../include/gaussian_elimination.h"
+#include <iostream>
 
 void GaussianElimination::solve(Matrix* a, Matrix* b, Matrix* x) {
 	x->initialize(b->width, b->height, 0);
@@ -13,7 +14,6 @@ void GaussianElimination::solve(Matrix* a, Matrix* b, Matrix* x) {
 			}
 				
 		}
-		a->print();
 		for (int i = pivot + 1; i < a->height; i++) {
 			if (a->matrix[i][pivot] != 0) {
 				double scalar = a->matrix[i][pivot] / a->matrix[pivot][pivot];
