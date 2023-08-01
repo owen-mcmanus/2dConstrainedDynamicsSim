@@ -133,6 +133,18 @@ void Matrix::multiplyScalar(double scalar) {
     }
 }
 
+void Matrix::multiplyRowScalar(double scalar, int row) {
+    for (int i = 0; i < width; ++i) {
+        matrix[row][i] *= scalar;
+    }
+}
+
+void Matrix::multiplyColumnScalar(double scalar, int col) {
+    for (int i = 0; i < height; ++i) {
+        matrix[i][col] *= scalar;
+    }
+}
+
 void Matrix::subtract(Matrix& b, Matrix* target) {
     target->resize(width, height);
 
@@ -141,6 +153,20 @@ void Matrix::subtract(Matrix& b, Matrix* target) {
             target->matrix[i][j] = matrix[i][j]-b.matrix[i][j];
         }
     }
+}
+
+void Matrix::subtractRows(int row_a, int row_b) {
+    for (int i = 0; i < width; ++i) {
+        matrix[row_b][i] = matrix[row_a][i] - matrix[row_b][i];
+    }
+}
+
+void Matrix::swapRows(int row_a, int row_b) {
+    double* tmp = new double[width];
+    memcpy(tmp, matrix[row_a], sizeof(double)*width);
+    memcpy(matrix[row_a], matrix[row_b], sizeof(double)*width);
+    memcpy(matrix[row_b], tmp, sizeof(double)*width);
+    delete[](tmp);
 }
 
 void Matrix::diag(double* target) {

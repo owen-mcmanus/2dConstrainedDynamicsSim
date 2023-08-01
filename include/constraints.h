@@ -3,6 +3,7 @@
 
 #include "single_rigidbody.h"
 #include "martrix.h"
+#include "gaussian_elimination.h"
 
 class Constraints {
 public:

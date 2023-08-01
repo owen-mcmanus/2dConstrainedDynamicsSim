@@ -18,7 +18,11 @@ public:
     void Matrix::multiply(Matrix& b, Matrix* target);
     void Matrix::transposeMultiply(Matrix& b, Matrix* target);
     void Matrix::multiplyScalar(double scalar);
+    void Matrix::multiplyRowScalar(double scalar, int row);
+    void Matrix::multiplyColumnScalar(double scalar, int col);
     void Matrix::subtract(Matrix& b, Matrix* target);
+    void Matrix::subtractRows(int row_a, int row_b);
+    void Matrix::swapRows(int row_a, int row_b);
     void Matrix::diag(double* target);
     void Matrix::transpose(Matrix* target);
     void Matrix::print();

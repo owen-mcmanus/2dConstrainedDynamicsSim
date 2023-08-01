@@ -7,6 +7,7 @@
 #include "../include/gravity_fg.h"
 #include "../include/spring_fg.h"
 #include "../include/constraints.h"
+#include "../include/gaussian_elimination.h"
 
 DataLogger loger = DataLogger("data");
 SingleRigidbody mass1 = SingleRigidbody("mass1", false);

@@ -36,7 +36,7 @@ add_library("${ProjectName}" STATIC
 
     # Header files
     include/information.h
- "include/state.h" "src/state.cpp" "include/flat_vector.h" "src/flat_vector.cpp" "include/force_generator.h" "src/force_generator.cpp" "include/rigidbody.h" "src/rigidbody.cpp" "include/gravity_fg.h" "src/gravity_fg.cpp" "include/euler_solver.h" "src/euler_solver.cpp" "include/single_rigidbody.h" "src/single_rigidbody.cpp" "src/double_rigidbody.cpp" "include/double_rigidbody.h" "src/spring_fg.cpp" "include/spring_fg.h" "src/runge_kutta_solver.cpp" "include/runge_kutta_solver.h" "src/data_logger.cpp" "include/data_logger.h" "include/constraints.h" "src/constraints.cpp" "include/martrix.h" "src/matrix.cpp" "include/constraint.h" "src/constraint.cpp")
+ "include/state.h" "src/state.cpp" "include/flat_vector.h" "src/flat_vector.cpp" "include/force_generator.h" "src/force_generator.cpp" "include/rigidbody.h" "src/rigidbody.cpp" "include/gravity_fg.h" "src/gravity_fg.cpp" "include/euler_solver.h" "src/euler_solver.cpp" "include/single_rigidbody.h" "src/single_rigidbody.cpp" "src/double_rigidbody.cpp" "include/double_rigidbody.h" "src/spring_fg.cpp" "include/spring_fg.h" "src/runge_kutta_solver.cpp" "include/runge_kutta_solver.h" "src/data_logger.cpp" "include/data_logger.h" "include/constraints.h" "src/constraints.cpp" "include/martrix.h" "src/matrix.cpp" "include/constraint.h" "src/constraint.cpp" "src/gaussian_elimination.cpp" "include/gaussian_elimination.h")
 
 target_compile_definitions("${ProjectName}" PRIVATE PROJECT_NAMESPACE=${ProjectNamespace})
 
@@ -45,7 +45,7 @@ add_executable("${ProjectName}-main"
     src/main.cpp
 
     # Header files
- "include/state.h" "src/state.cpp" "include/flat_vector.h" "src/flat_vector.cpp" "include/force_generator.h" "src/force_generator.cpp" "include/rigidbody.h" "src/rigidbody.cpp" "include/gravity_fg.h" "src/gravity_fg.cpp" "include/euler_solver.h" "src/euler_solver.cpp" "include/single_rigidbody.h" "src/single_rigidbody.cpp" "src/double_rigidbody.cpp" "include/double_rigidbody.h" "src/spring_fg.cpp" "include/spring_fg.h" "src/runge_kutta_solver.cpp" "include/runge_kutta_solver.h" "src/data_logger.cpp" "include/data_logger.h" "include/constraints.h" "src/constraints.cpp" "include/martrix.h" "src/matrix.cpp" "include/constraint.h" "src/constraint.cpp")
+ "include/state.h" "src/state.cpp" "include/flat_vector.h" "src/flat_vector.cpp" "include/force_generator.h" "src/force_generator.cpp" "include/rigidbody.h" "src/rigidbody.cpp" "include/gravity_fg.h" "src/gravity_fg.cpp" "include/euler_solver.h" "src/euler_solver.cpp" "include/single_rigidbody.h" "src/single_rigidbody.cpp" "src/double_rigidbody.cpp" "include/double_rigidbody.h" "src/spring_fg.cpp" "include/spring_fg.h" "src/runge_kutta_solver.cpp" "include/runge_kutta_solver.h" "src/data_logger.cpp" "include/data_logger.h" "include/constraints.h" "src/constraints.cpp" "include/martrix.h" "src/matrix.cpp" "include/constraint.h" "src/constraint.cpp" "src/gaussian_elimination.cpp" "include/gaussian_elimination.h")
 
 # gtest
 
@@ -56,7 +56,7 @@ add_executable("${ProjectName}-test"
     test/sanity_test.cpp
 
     # Head files
- "include/state.h" "src/state.cpp" "include/flat_vector.h" "src/flat_vector.cpp" "include/force_generator.h" "src/force_generator.cpp" "include/rigidbody.h" "src/rigidbody.cpp" "include/gravity_fg.h" "src/gravity_fg.cpp" "include/euler_solver.h" "src/euler_solver.cpp" "include/single_rigidbody.h" "src/single_rigidbody.cpp" "src/double_rigidbody.cpp" "include/double_rigidbody.h" "src/spring_fg.cpp" "include/spring_fg.h" "src/runge_kutta_solver.cpp" "include/runge_kutta_solver.h" "src/data_logger.cpp" "include/data_logger.h" "include/constraints.h" "src/constraints.cpp" "include/martrix.h" "src/matrix.cpp" "include/constraint.h" "src/constraint.cpp")
+ "include/state.h" "src/state.cpp" "include/flat_vector.h" "src/flat_vector.cpp" "include/force_generator.h" "src/force_generator.cpp" "include/rigidbody.h" "src/rigidbody.cpp" "include/gravity_fg.h" "src/gravity_fg.cpp" "include/euler_solver.h" "src/euler_solver.cpp" "include/single_rigidbody.h" "src/single_rigidbody.cpp" "src/double_rigidbody.cpp" "include/double_rigidbody.h" "src/spring_fg.cpp" "include/spring_fg.h" "src/runge_kutta_solver.cpp" "include/runge_kutta_solver.h" "src/data_logger.cpp" "include/data_logger.h" "include/constraints.h" "src/constraints.cpp" "include/martrix.h" "src/matrix.cpp" "include/constraint.h" "src/constraint.cpp" "src/gaussian_elimination.cpp" "include/gaussian_elimination.h")
 
 target_link_libraries("${ProjectName}-test"
     gtest_main

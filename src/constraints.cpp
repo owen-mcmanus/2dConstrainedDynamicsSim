@@ -12,6 +12,9 @@ static Matrix left1 = Matrix();
 static Matrix right = Matrix();
 static Matrix right1 = Matrix();
 static Matrix right2 = Matrix();
+static Matrix lambda = Matrix();
+static Matrix Jt = Matrix();
+static Matrix Qhat = Matrix();
 
 void Constraints::calculateCircleConst(SingleRigidbody* rb) {
 	//double lambda = (-1 * (rb->state.f * rb->state.p) - (rb->state.mass * (rb->state.v * rb->state.v))) / (rb->state.p * rb->state.p);
@@ -107,13 +110,15 @@ void Constraints::calculate() {
 	left1.multiply(Q, &right2);
 	right1.subtract(right2, &right);
 
-	double lambda = (1 / (left.matrix[0][0])) * right.matrix[0][0];
+	GaussianElimination::solve(&left, &right, &lambda);
 
-	Matrix Jt = Matrix();
+	//double lambda = (1 / (left.matrix[0][0])) * right.matrix[0][0];
+
+	
 	J.transpose(&Jt);
-	Jt.multiplyScalar(lambda);
-	SingleRigidbody::rb_list[0]->state.f.x += Jt.matrix[0][0]; 
-	SingleRigidbody::rb_list[0]->state.f.y += Jt.matrix[0][1];
+	Jt.multiply(lambda, &Qhat);
+	SingleRigidbody::rb_list[0]->state.f.x += Qhat.matrix[0][0];
+	SingleRigidbody::rb_list[0]->state.f.y += Qhat.matrix[0][1];
 	//W.print();
 	//Q.print();
 	//qdot.print();
